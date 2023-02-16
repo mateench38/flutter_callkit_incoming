@@ -222,6 +222,11 @@ class CallkitNotificationManager(private val context: Context) {
     }
 
     fun showMissCallNotification(data: Bundle) {
+        
+        context.sendBroadcast(CallkitIncomingActivity.getIntentEnded(context))
+        notificationId = data.getString(EXTRA_CALLKIT_ID, "callkit_incoming").hashCode()
+        getNotificationManager().cancel(notificationId);
+        
         notificationId = data.getString(EXTRA_CALLKIT_ID, "callkit_incoming").hashCode() + 1
         createNotificationChanel(
             data.getString(EXTRA_CALLKIT_INCOMING_CALL_NOTIFICATION_CHANNEL_NAME, "Incoming Call"),
